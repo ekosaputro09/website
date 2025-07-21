@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eko Saputro - Data Engineer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Professional Teal -->
+    <!-- Application Structure Plan: A thematic, dashboard-style SPA designed to guide a recruiter through a compelling narrative. The structure starts with a high-impact summary and key metrics, moves to an interactive career timeline for detailed exploration, showcases a categorized technical stack, visually proves value with a dynamic "Impact Spotlight" chart, and finishes with foundational education details. This non-linear structure prioritizes scannable achievements and user-driven discovery over a static, linear document, making it more engaging and effective for a busy audience. -->
+    <!-- Visualization & Content Choices: 
+        - Hero Summary: (Goal: Hook) -> Presentation: Clean Intro Text -> Interaction: None -> Justification: Fast, high-level overview. -> Method: HTML/Tailwind.
+        - Key Metrics: (Goal: Impress) -> Presentation: Stat Cards -> Interaction: Hover effects -> Justification: Immediately quantifies value. -> Method: HTML/Tailwind Grid.
+        - Career Timeline: (Goal: Explore/Inform) -> Presentation: Interactive Vertical Timeline -> Interaction: On-click display of job details -> Justification: Engages user and shows career progression dynamically. -> Method: JS/HTML/Tailwind.
+        - Technical Stack: (Goal: Organize) -> Presentation: Categorized Badges -> Interaction: Hover effects -> Justification: Clear, scannable overview of technical capabilities. -> Method: HTML/Tailwind.
+        - Impact Spotlight Chart: (Goal: Compare/Prove) -> Presentation: Dual-Axis Bar/Line Chart -> Interaction: Buttons update chart data to show "Before vs. After" automation -> Justification: Visualizes the most powerful achievement for maximum impact. -> Library: Chart.js.
+        - Education: (Goal: Inform) -> Presentation: Simple Text Block -> Interaction: None -> Justification: Provides foundational background information. -> Method: HTML/Tailwind. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #3D3D3D;
+        }
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .timeline-item.active .timeline-dot {
+            background-color: #26A69A;
+            transform: scale(1.5);
+        }
+        .timeline-item .timeline-dot {
+            transition: all 0.3s ease;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .btn-active {
+            background-color: #1a746b !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12 md:mb-16">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-800">Eko Saputro</h1>
+            <p class="text-xl md:text-2xl text-teal-600 mt-2">Data Engineer</p>
+            <div id="professional-summary" class="max-w-3xl mx-auto mt-6 text-base md:text-lg text-gray-600">
+                <p>Results-driven Data Engineer with over 5 years of experience in designing, developing, and optimizing scalable data pipelines for e-commerce businesses. Proficient in GCP technologies, including BigQuery, Cloud Composer (Airflow), Cloud Function, and Pub/Sub, to build robust ETL infrastructures. Successfully improved product-matching by 100% and reduced processing time by 50% through data automation initiatives. Eager to design and optimize data ecosystems that empower data-driven decision-making and unlock new strategic opportunities.</p>
+            </div>
+            <div class="mt-6 flex justify-center space-x-6">
+                <a href="https://www.linkedin.com/in/ekosaputro09" target="_blank" class="text-teal-600 hover:text-teal-800 transition-colors">LinkedIn Profile</a>
+                <a href="https://github.com/ekosaputro09" target="_blank" class="text-teal-600 hover:text-teal-800 transition-colors">GitHub Repository</a>
+            </div>
+        </header>
+
+        <!-- Key Metrics Dashboard Section -->
+        <section id="metrics" class="mb-12 md:mb-20">
+             <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Key Career Highlights</h2>
+                <p class="text-gray-600 mt-2">A snapshot of tangible results and professional achievements that highlight my impact.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="stat-card bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl font-bold text-teal-600">5+</div>
+                    <div class="mt-2 text-gray-600">Years of Experience</div>
+                </div>
+                <div class="stat-card bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl font-bold text-teal-600">100%</div>
+                    <div class="mt-2 text-gray-600">Product Matching, Matched Product Increase</div>
+                </div>
+                <div class="stat-card bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl font-bold text-teal-600">-50%</div>
+                    <div class="mt-2 text-gray-600">Product Matching, Processing Time Reduction</div>
+                </div>
+                <div class="stat-card bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl font-bold text-teal-600">10+</div>
+                    <div class="mt-2 text-gray-600">Data Sources Centralized</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Journey (Interactive Timeline) -->
+        <section id="experience" class="mb-12 md:mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">Career Journey</h2>
+                <p class="text-gray-600 mt-2">An interactive timeline of my professional experience. Click on a role to view detailed responsibilities and key achievements.</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Timeline Navigation -->
+                <div class="w-full md:w-1/3">
+                    <div id="timeline-nav" class="relative pl-8">
+                        <!-- Timeline items will be injected by JS -->
+                    </div>
+                </div>
+                <!-- Details Panel -->
+                <div id="experience-details" class="w-full md:w-2/3 bg-white p-6 rounded-lg shadow-lg min-h-[300px]">
+                    <p class="text-gray-500 text-center py-12">Select a role from the timeline to see details.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Stack -->
+        <section id="skills" class="mb-12 md:mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">Technical Stack</h2>
+                <p class="text-gray-600 mt-2">A comprehensive overview of the primary programming languages, cloud platforms, and tools I leverage in data engineering.</p>
+            </div>
+            <div id="skills-container" class="max-w-4xl mx-auto">
+                <!-- Skills will be injected by JS -->
+            </div>
+        </section>
+
+        <!-- Impact Spotlight Chart -->
+        <!-- section id="impact" class="mb-12 md:mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">Impact Spotlight: Automation at Pricebook</h2>
+                <p class="text-gray-600 mt-2">Visualizing the transformative results of automating product matching and price checking tasks. Use the buttons below to compare the 'Before Automation' and 'After Automation' scenarios.</p>
+            </div>
+            <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg">
+                <div class="chart-container">
+                    <canvas id="impactChart"></canvas>
+                </div>
+                <div class="mt-6 flex justify-center space-x-4">
+                    <button id="beforeBtn" class="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition">Before Automation</button>
+                    <button id="afterBtn" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition">After Automation</button>
+                </div>
+            </div>
+        </section -->
+
+        <!-- Education & Training -->
+        <footer id="education" class="bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Education & Training</h2>
+            <div class="flex flex-col md:flex-row justify-center md:space-x-12 text-center md:text-left">
+                <div>
+                    <h3 class="font-semibold text-lg text-teal-600">University of Indonesia (2011-2016)</h3>
+                    <p>Bachelor of Science (B.Sc.) in Physics | GPA: 3.20</p>
+                    <p class="text-sm text-gray-500">Specialization: Nuclear Particle (Theoretical Physics)</p>
+                </div>
+                <div class="mt-6 md:mt-0">
+                    <h3 class="font-semibold text-lg text-teal-600">PACMANN AI (2017)</h3>
+                    <p>All of Machine Learning</p>
+                    <p class="text-sm text-gray-500">Intensive training program</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const experiences = [
+                {
+                    id: 'hypefast',
+                    role: 'Data Engineer I Associate',
+                    company: 'PT. Hypefast Karya Nusantara',
+                    period: 'July 2022 - September 2023',
+                    details: [
+                        'Designed and implemented a robust data pipeline architecture to support analytics and reporting for e-commerce operations.',
+                        'Engineered comprehensive data ingestion solutions from diverse sources, including e-commerce APIs, Google Sheets, and Web Scraping, ensuring data availability for 5+ stakeholder teams.',
+                        'Built and maintained a scalable GCP-based ETL infrastructure, improving data processing efficiency and reliability by 35%.',
+                        'Collaborated with 5+ cross-functional stakeholders to resolve critical data-related technical issues, ensuring seamless data flow and accessibility.',
+                        'Developed interactive data visualizations and dashboards using Metabase, which enabled stakeholders to gain actionable insights and make data-driven decisions.',
+                    ],
+                    achievements: [
+                        'Engineered a scalable data infrastructure that automated numerous manual data processes, leading to an estimated 30% reduction in manual effort and faster data delivery.',
+                        'Developed a centralized data pipeline that successfully consolidated data from over 10 disparate sources into a unified data warehouse, improving data consistency and accessibility for analytics.',
+                    ]
+                },
+                {
+                    id: 'pricebook',
+                    role: 'Data Engineer',
+                    company: 'PT. Pricebook Digital Indonesia',
+                    period: 'December 2017 - May 2022',
+                    details: [
+                        'Designed, implemented, and managed end-to-end data pipelines that processed over 500GB of daily data, supporting critical business and product functions.',
+                        'Ensured high data integrity and quality by implementing comprehensive data validation checks and automated monitoring systems, reducing data discrepancies by 40%.',
+                        'Automated various web tasks and implemented robust web scraping solutions using Selenium, resulting in improved data collection efficiency by 65%.',
+                        'Developed solutions for processing both structured and unstructured (text) data, enabling new capabilities to identify a specific product and its specifications using similarity metrics.',
+                        'Researched, evaluated, and implemented new technologies to continuously improve the existing data stack, resulting in improved pipeline performance by 35%.',
+                    ],
+                    achievements: [
+                        'Led the automation of product-matching tasks, resulting in a 100% increase in total matched products with a 50% reduction in processing time and price-checking tasks, resulting in an 80% increase in total checked prices with a 40% reduction of data discrepancies.',
+                    ]
+                },
+                {
+                    id: 'aprisma',
+                    role: 'Java Developer',
+                    company: 'PT. Aprisma Wirecard Indonesia',
+                    period: 'April 2016 - October 2016',
+                    details: [
+                        'Developed and maintained application programs based on approved specifications, ensuring adherence to standard programming procedures.',
+                        'Conducted continuous application program maintenance to ensure system compliance with mandatory changes and business requirements.',
+                        'Analyzed reported problems and identified the root cause, then provided effective solutions that improved system stability and user satisfaction.',
+                    ],
+                    achievements: []
+                }
+            ];
+
+            const timelineNav = document.getElementById('timeline-nav');
+            const detailsPanel = document.getElementById('experience-details');
+
+            experiences.forEach((exp, index) => {
+                const isLast = index === experiences.length - 1;
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item cursor-pointer pb-8 relative ${isLast ? '' : 'border-l-2 border-teal-200'}`;
+                timelineItem.dataset.id = exp.id;
+
+                timelineItem.innerHTML = `
+                    <div class="timeline-dot w-4 h-4 bg-teal-500 rounded-full absolute -left-2 top-1"></div>
+                    <div class="ml-8">
+                        <h3 class="font-semibold text-lg text-gray-800">${exp.role}</h3>
+                        <p class="text-gray-600">${exp.company}</p>
+                        <p class="text-sm text-gray-500">${exp.period}</p>
+                    </div>
+                `;
+                timelineNav.appendChild(timelineItem);
+            });
+            
+            function updateExperienceDetails(id) {
+                const exp = experiences.find(e => e.id === id);
+                if (!exp) return;
+
+                let achievementsHTML = '';
+                if (exp.achievements && exp.achievements.length > 0) {
+                    achievementsHTML = `
+                        <h4 class="font-semibold text-lg mt-4 mb-2 text-teal-700">Key Achievements</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            ${exp.achievements.map(a => `<li>${a}</li>`).join('')}
+                        </ul>
+                    `;
+                }
+
+                detailsPanel.innerHTML = `
+                    <h3 class="text-2xl font-bold text-gray-800">${exp.role}</h3>
+                    <p class="text-lg text-gray-600 mb-1">${exp.company}</p>
+                    <p class="text-sm text-gray-500 mb-4">${exp.period}</p>
+                    <h4 class="font-semibold text-lg mb-2 text-teal-700">Responsibilities</h4>
+                    <ul class="list-disc list-inside space-y-1 text-gray-600">
+                        ${exp.details.map(d => `<li>${d}</li>`).join('')}
+                    </ul>
+                    ${achievementsHTML}
+                `;
+                
+                document.querySelectorAll('.timeline-item').forEach(item => {
+                    item.classList.toggle('active', item.dataset.id === id);
+                });
+            }
+
+            timelineNav.addEventListener('click', (e) => {
+                const targetItem = e.target.closest('.timeline-item');
+                if (targetItem) {
+                    updateExperienceDetails(targetItem.dataset.id);
+                }
+            });
+
+            // Initial load
+            if (experiences.length > 0) {
+                updateExperienceDetails(experiences[0].id);
+            }
+
+            // Data for Skills
+            const skills = {
+                "Programming Languages": ["Python"],
+                "Databases": ["MySQL", "PostgreSQL", "MongoDB", "GCP BigQuery"],
+                "ETL & Orchestration": ["Airflow", "GCP Cloud Composer"],
+                "Cloud": ["GCP (Cloud Function, Cloud Run, Pub/Sub)", "AWS S3"],
+                "Data Visualization": ["Metabase"],
+                "Version Control": ["Git"],
+                "Containerization": ["Docker"]
+            };
+
+            const skillsContainer = document.getElementById('skills-container');
+            for (const category in skills) {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'mb-8';
+                let skillsHTML = skills[category].map(skill => 
+                    `<span class="inline-block bg-teal-100 text-teal-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${skill}</span>`
+                ).join('');
+
+                categoryDiv.innerHTML = `
+                    <h3 class="text-xl font-semibold mb-4 text-center text-gray-700">${category}</h3>
+                    <div class="flex flex-wrap justify-center">
+                        ${skillsHTML}
+                    </div>
+                `;
+                skillsContainer.appendChild(categoryDiv);
+            }
+            
+            // Chart.js Impact Chart
+            const ctx = document.getElementById('impactChart').getContext('2d');
+            const beforeData = {
+                labels: ['Product Matching', 'Processing Time'],
+                datasets: [{
+                    label: 'Before Automation',
+                    data: [100, 100], // Baseline percentage
+                    backgroundColor: ['rgba(244, 143, 177, 0.6)', 'rgba(77, 182, 172, 0.6)'],
+                    borderColor: ['rgba(244, 143, 177, 1)', 'rgba(77, 182, 172, 1)'],
+                    borderWidth: 1
+                }]
+            };
+
+            const afterData = {
+                labels: ['Product Matching', 'Processing Time'],
+                datasets: [{
+                    label: 'After Automation',
+                    data: [200, 50], // 200% increase, 50% reduction
+                    backgroundColor: ['rgba(244, 143, 177, 0.6)', 'rgba(77, 182, 172, 0.6)'],
+                    borderColor: ['rgba(244, 143, 177, 1)', 'rgba(77, 182, 172, 1)'],
+                    borderWidth: 1
+                }]
+            };
+
+            const chartConfig = {
+                type: 'bar',
+                data: beforeData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Make it a horizontal bar chart
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Relative Performance (%)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    const label = this.getLabelForValue(value);
+                                    if (label.length > 16) {
+                                        return label.split(' ').map((word, i) => {
+                                            if (i === 0) return word;
+                                            return word.length > 16 ? word.substring(0, 16) + '...' : word;
+                                        });
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const impactChart = new Chart(ctx, chartConfig);
+
+            const beforeBtn = document.getElementById('beforeBtn');
+            const afterBtn = document.getElementById('afterBtn');
+
+            function updateChart(data, activeBtn) {
+                impactChart.data = data;
+                impactChart.update();
+                beforeBtn.classList.remove('btn-active');
+                afterBtn.classList.remove('btn-active');
+                if(activeBtn) {
+                    activeBtn.classList.add('btn-active');
+                }
+            }
+
+            beforeBtn.addEventListener('click', () => updateChart(beforeData, beforeBtn));
+            afterBtn.addEventListener('click', () => updateChart(afterData, afterBtn));
+
+            beforeBtn.classList.add('btn-active');
+        });
+    </script>
+</body>
+</html>
